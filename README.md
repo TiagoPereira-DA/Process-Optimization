@@ -54,3 +54,17 @@ The data loading, schema validation, and anomaly detection phase using distribut
 - Temperature Spikes: To detect critical operational risks, a filtering condition ("col() > 210") was applied to the reactor temperature column. This isolated the exact 10-hour window where the cooling system failure occurred, confirming that the historical data accurately captured the emergency event.
 
 - Baseline Metrics: Using the "df.select(mean())" function, process averages were calculated for temperature, energy consumption, and product yield. These statistical baselines serve as the foundation for future process optimization, allowing plant operations to compare normal behavior against anomalous events.
+
+
+Task 3: Data Cleaning (PySpark)
+
+The data transformation pipeline, missing value imputation, and operational feature engineering phase using distributed computing is broken down below:
+
+- Missing Value Imputation: To resolve the 5 random instrument data dropouts ("NaN") in the pressure column without losing historical context, the "mean()" aggregation function was combined with a ".collect()[0][0]" data extraction sequence. This isolated the exact global baseline average of the process, which was then injected into the missing rows via the ".fillna()" API, filling the full dataset.
+
+- Process Anomaly: To turn raw missing records into actionable operational insights, conditional logic was applied using the "when(col() > 210, 1).otherwise(0)" framework. This created a new binary feature column ("Is_Anomaly") that automatically flags the 10-hour cooling system failure window, preparing the dataset for future predictive maintenance models.
+
+- Operational Efficiency Modeling: In chemical plant logistics, assessing energy draw against actual product mass is critical for margin optimization. A mathematical column transformation ("withColumn") was built to divide "Energy_Consumption_MWh" by "Product_Yield_kg" on a rolling hourly basis, creating a custom diagnostic metric named "Energy_Efficiency_MWh_per_kg".
+
+- Pipeline Output Consolidation: To ensure that the final cleaned and engineered dataset is ready for analytics and business intelligence dashboards, the data stream was funneled through a ".coalesce(1)" partition manager. This forces Spark's parallel architecture to safely merge all data blocks back into a single, clean partition before exporting it to the local target path ("data/processed") using the "overwrite" file-writing protocol.
+
