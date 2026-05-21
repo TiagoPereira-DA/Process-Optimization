@@ -8,13 +8,13 @@ This project focuses on analyzing historical sensor data from a continuous chemi
 
 - Tools Utilized
 
-  -Data Processing: PySpark (Apache Spark)
+	-Data Processing: PySpark (Apache Spark)
 
-  -Data Analysis: Python (Pandas, NumPy)
+	-Data Analysis: Python (Pandas, NumPy)
 
-  -Database Management: SQL
+	-Database Management: SQL
 
-  -Data Visualization: Power BI
+	-Data Visualization: Power BI
 
 
 Task 1: Creating a DataSet for analysis 
