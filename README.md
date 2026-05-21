@@ -68,3 +68,12 @@ The data transformation pipeline, missing value imputation, and operational feat
 
 - Pipeline Output Consolidation: To ensure that the final cleaned and engineered dataset is ready for analytics and business intelligence dashboards, the data stream was funneled through a ".coalesce(1)" partition manager. This forces Spark's parallel architecture to safely merge all data blocks back into a single, clean partition before exporting it to the local target path ("data/processed") using the "overwrite" file-writing protocol.
 
+Task 4: Business Intelligence & Temporal Aggregations (PySpark)
+
+The business analytics phase focused on transforming granular operational records into executive-level performance metrics and aggregated reports using PySpark data frames:
+
+	- Hourly Efficiency Profiling: Developed a time-series aggregation pipeline using the "hour()" function to segment operations across a 24-hour cycle. By grouping data by hour of the day and applying the "avg()" and "sum()" aggregations, the model maps daily utility cost peaks and productivity troughs, providing a direct breakdown of hourly efficiency profiles for operational cost control.
+
+	- Corporate Daily Performance Summaries: Implemented structured date transformation workflows using the "date_format(col(), 'yyyy-MM-dd')" schema. Granular timestamps were consolidated into automated daily ledger summaries ("Daily_Total_Production_kg" and "Daily_Total_Energy_MWh"), streamlining broad historical data streams into high-level business reports.
+
+	- Analytics Delivery: To facilitate executive decision-making and cross-departmental reporting, the generated metrics were split into specialized operational tables. Using ".coalesce(1)", the processed business insights were exported as clean, single-partition CSV assets into a new enterprise-ready directory ("data/business_reports/"), establishing a seamless data feed for Power BI and Tableau dashboards.
