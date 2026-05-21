@@ -77,3 +77,16 @@ The business analytics phase focused on transforming granular operational record
 - Corporate Daily Performance Summaries: Implemented structured date transformation workflows using the "date_format(col(), 'yyyy-MM-dd')" schema. Granular timestamps were consolidated into automated daily ledger summaries ("Daily_Total_Production_kg" and "Daily_Total_Energy_MWh"), streamlining broad historical data streams into high-level business reports.
 
 - Analytics Delivery: To facilitate executive decision-making and cross-departmental reporting, the generated metrics were split into specialized operational tables. Using ".coalesce(1)", the processed business insights were exported as clean, single-partition CSV assets into a new enterprise-ready directory ("data/business_reports/"), establishing a seamless data feed for Power BI and Tableau dashboards.
+
+
+Task 5: Business Analysis Dashboard (Power BI)
+
+The final phase focused on data model configuration, data type alignment, and executive dashboard engineering using Power BI Desktop to translate processed engineering records into interactive, high-level business insights:
+
+- Data Pipeline Localization and Normalization: Ingested the single-partition CSV assets generated in Task 4 (`daily_report.csv` and `hourly_profile.csv`). Utilizing Power Query, a Regional Locale conversion strategy ("Using Locale" configured to English/United States) was applied to the numeric features (`Daily_Total_Production_kg`, `Daily_Total_Energy_MWh`, and `Avg_Energy_Cost_Per_Unit`). This step resolved regional syntax conflicts between Python's decimal point formatting and local system environment settings, successfully transforming flat text strings into functional numeric fields.
+
+- Temporal Production and Anomaly Tracking: Engineered an interactive Time-Series Line Chart (`Daily Production Evolution`) by mapping `Date` to the X-axis and the aggregated `Daily_Total_Production_kg` (configured to Sum) to the Y-axis. This visualization explicitly illustrates the process baseline stability and isolates the exact operational drop on the day of the cooling system failure. To enhance executive interactivity, a dynamic Date Slicer was implemented, allowing stakeholders to filter and audit specific operational windows in real-time.
+
+- Cost-Efficiency Profiling: Built a Clustered Column Chart (`Hourly Energy Cost Profile`) to map the 24-hour manufacturing cycle. By binding `Hour_of_Day` (configured to "Don't Summarize") to the X-axis and `Avg_Energy_Cost_Per_Unit` to the Y-axis, the dashboard isolates utility cost peaks. An analytical `Constant Line` was integrated as a custom "Critic Hour" threshold, visually segmenting standard operational hours from high-load, inefficient peak intervals to support energy load-shifting decisions.
+
+- Executive KPI Framework: Developed an executive scorecard banner using native Card Visuals to display high-level corporate metrics: Total Production mass (`848.72K kg`), Total Energy consumption (`25.37K MWh`), and a custom-calculated metric for Average Daily Production (`28.29K kg`). Gridlines were stripped from the canvas view to provide a clean, modern, and corporate-ready user interface tailored for operational performance reviews.
