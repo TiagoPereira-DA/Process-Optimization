@@ -68,7 +68,7 @@ The data transformation pipeline, missing value imputation, and operational feat
 
 - Pipeline Output Consolidation: To ensure that the final cleaned and engineered dataset is ready for analytics and business intelligence dashboards, the data stream was funneled through a ".coalesce(1)" partition manager. This forces Spark's parallel architecture to safely merge all data blocks back into a single, clean partition before exporting it to the local target path ("data/processed") using the "overwrite" file-writing protocol.
 
-Task 4: Business Analysis (PySpark) ("File: Bussiness Analysis")
+Task 4: Business Analysis (PySpark) ("File: Business Analysis")
 
 The business analytics phase focused on transforming granular operational records into executive-level performance metrics and aggregated reports using PySpark data frames:
 
