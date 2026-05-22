@@ -17,7 +17,7 @@ This project focuses on analyzing historical sensor data from a continuous chemi
 	-Data Visualization: Power BI
 
 
-Task 1: Creating a DataSet for analysis 
+Task 1: Creating a DataSet for analysis (File: "Data Generator.py")
 
 The dataset generation logic is broken down below:
 	
@@ -39,7 +39,7 @@ The dataset generation logic is broken down below:
 
 - Data Export: Finally, the structured, "dirty" dataset was exported as a local CSV file ("raw_reactor_data.csv") using the "to_csv()" function.
 
-Task 2: Data Ingestion (PySpark)
+Task 2: Data Ingestion (PySpark) (File: "Analysis.py")
 
 The data loading, schema validation, and anomaly detection phase using distributed computing is broken down below:
 
@@ -56,7 +56,7 @@ The data loading, schema validation, and anomaly detection phase using distribut
 - Baseline Metrics: Using the "df.select(mean())" function, process averages were calculated for temperature, energy consumption, and product yield. These statistical baselines serve as the foundation for future process optimization, allowing plant operations to compare normal behavior against anomalous events.
 
 
-Task 3: Data Cleaning (PySpark)
+Task 3: Data Cleaning (PySpark) ("File: Data Cleaning")
 
 The data transformation pipeline, missing value imputation, and operational feature engineering phase using distributed computing is broken down below:
 
@@ -68,7 +68,7 @@ The data transformation pipeline, missing value imputation, and operational feat
 
 - Pipeline Output Consolidation: To ensure that the final cleaned and engineered dataset is ready for analytics and business intelligence dashboards, the data stream was funneled through a ".coalesce(1)" partition manager. This forces Spark's parallel architecture to safely merge all data blocks back into a single, clean partition before exporting it to the local target path ("data/processed") using the "overwrite" file-writing protocol.
 
-Task 4: Business Analysis (PySpark)
+Task 4: Business Analysis (PySpark) ("File: Bussiness Analysis")
 
 The business analytics phase focused on transforming granular operational records into executive-level performance metrics and aggregated reports using PySpark data frames:
 
